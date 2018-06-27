@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="expenseCategory"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:text="expenseAmount"
+            android:textSize="15dp"/>
+
+
+    <TextView
+            android:id="@+id/percentage"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:textAlignment="textEnd"
+            android:layout_weight="1"
+            android:text="percentage"
+            android:textSize="15dp"/>
+
+
+</LinearLayout>

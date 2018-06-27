@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "686097453198",
+    "firebase_url": "https://paisavasool-1e97f.firebaseio.com",
+    "project_id": "paisavasool-1e97f",
+    "storage_bucket": "paisavasool-1e97f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686097453198:android:e1b4d3ad5128eba3",
+        "android_client_info": {
+          "package_name": "com.example.ruplaga.paisavasool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686097453198-j6nnodupukop9cu647ov4ri6lelrab2h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ruplaga.paisavasool",
+            "certificate_hash": "8e3fa1ce51e144197ddfc289a3a19f67e73d2eb6"
+          }
+        },
+        {
+          "client_id": "686097453198-spmho3a66evuakq7khv7t3d018f4t4fa.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "686097453198-spmho3a66evuakq7khv7t3d018f4t4fa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFDWd1t8Sd-wFnOuAcwOCUKFfvUCdIbvw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686097453198-spmho3a66evuakq7khv7t3d018f4t4fa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

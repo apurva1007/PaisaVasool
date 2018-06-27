@@ -1,0 +1,144 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:background="@color/background"
+    android:id="@+id/fragment_home"
+    tools:context="com.example.ruplaga.paisavasool.HomeFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60px"
+        android:gravity="center_horizontal"
+        android:textColor="#EDBB99"
+        android:text="Total Balance"/>
+
+    <TextView
+        android:id="@+id/totalBalance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50px"
+        android:gravity="center_horizontal"
+        android:text="Rs. 0"
+        android:textColor="#D35400"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_account"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="20px"
+        card_view:cardCornerRadius="4dp">
+
+        <ImageView
+            android:src="@drawable/axisbank75"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20px"
+            android:layout_width="75px"
+            android:layout_height="75px" />
+
+        <TextView
+            android:id="@+id/info_text_account"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|left"
+            android:layout_marginLeft="100px"
+            android:text="Account"
+            android:textColor="#a40032"
+            android:padding="20px"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <TextView
+            android:id="@+id/info_text_account_money"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:padding="20px"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_paytm"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="20px"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardBackgroundColor="@color/cardview_light_background">
+
+        <ImageView
+            android:src="@drawable/paytm75"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20px"
+            android:layout_width="75px"
+            android:layout_height="75px" />
+
+        <TextView
+            android:id="@+id/info_text_paytm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|left"
+            android:layout_marginLeft="100px"
+            android:textColor="#5eb4e5"
+            android:text="Paytm"
+            android:padding="20px"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <TextView
+            android:id="@+id/info_text_paytm_money"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:padding="20px"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_cash"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="20px"
+        card_view:cardCornerRadius="4dp">
+
+        <ImageView
+            android:src="@drawable/rupee75"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20px"
+            android:layout_width="75px"
+            android:layout_height="75px" />
+
+        <TextView
+            android:id="@+id/info_text_cash"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|left"
+            android:layout_marginLeft="100px"
+            android:textColor="#3fac4e"
+            android:text="Cash"
+            android:padding="20px"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <TextView
+            android:id="@+id/info_text_cash_money"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:text="0"
+            android:padding="20px"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/signOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Out" />
+</LinearLayout>
