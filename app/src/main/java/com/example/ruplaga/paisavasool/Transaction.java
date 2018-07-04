@@ -15,7 +15,7 @@ public class Transaction {
     Float transactionAmount;
     String transactionModeOfPayment;
     String transactionCategory;
-    long transactionDate;
+    Long transactionDate;
     String transactionNotes;
 
     public Transaction() {

@@ -45,7 +45,7 @@ public class AddExpenseFragment extends Fragment implements View.OnClickListener
     String selectedCategory, mode, notes, dateString;
     float amount;
     int year, month, day;
-    long date;
+    Long date;
 
     Balance balance;
 
@@ -133,7 +133,7 @@ public class AddExpenseFragment extends Fragment implements View.OnClickListener
         cal.set(year,month,day);
         date = cal.getTimeInMillis();
 
-        dateString = year + "-" + month + "-" + day;
+        dateString = year + "-" + (month+1) + "-" + day;
         mDisplayDate.setText(dateString);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
@@ -152,12 +152,12 @@ public class AddExpenseFragment extends Fragment implements View.OnClickListener
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
+                month = month;
                 Calendar cal = Calendar.getInstance();
                 cal.set(year,month,day);
                 date = cal.getTimeInMillis();
 
-                dateString = year + "-" + month + "-" + day;
+                dateString = year + "-" + (month+1) + "-" + day;
                 mDisplayDate.setText(dateString);
             }
         };

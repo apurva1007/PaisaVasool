@@ -1,58 +1,234 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
-    android:id="@+id/fragment_history_menu_bottom"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="#ffffff"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="horizontal"
+    android:weightSum="4"
+    tools:context="com.example.ruplaga.paisavasool.HistoryFragment">
+
     <LinearLayout
-        android:id="@+id/bottom_sheet_account"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="horizontal"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:padding="16dp">
-        <TextView
-            android:layout_width="wrap_content"
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonType"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="Account"/>
+            android:text="Type"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/buttonMode"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mode"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/buttonCategory"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false" />
+
+
+        <Button
+            android:id="@+id/buttonDateRange"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date Range"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false" />
+
     </LinearLayout>
+
     <LinearLayout
-        android:id="@+id/bottom_sheet_paytm"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="horizontal"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:padding="16dp">
-        <TextView
-            android:layout_width="wrap_content"
+        android:id="@+id/typeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/menu"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <CheckBox
+            android:id="@+id/expenseCheckBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="Paytm"/>
+            android:text="Expense" />
+
+        <CheckBox
+            android:id="@+id/incomeCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Income" />
     </LinearLayout>
+
     <LinearLayout
-        android:id="@+id/bottom_sheet_cash"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="horizontal"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:padding="16dp">
-        <TextView
-            android:layout_width="wrap_content"
+        android:id="@+id/ModeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/menu"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <CheckBox
+            android:id="@+id/accountCheckBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="Cash"/>
+            android:text="Account" />
+
+        <CheckBox
+            android:id="@+id/paytmCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Paytm" />
+
+        <CheckBox
+            android:id="@+id/cashCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cash" />
     </LinearLayout>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/categoryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/menu"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <CheckBox
+            android:id="@+id/otherCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Other" />
+
+        <CheckBox
+            android:id="@+id/foodAndDrinksCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Food and Drinks" />
+
+        <CheckBox
+            android:id="@+id/healthCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Health" />
+
+        <CheckBox
+            android:id="@+id/leisureCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Leisure" />
+
+        <CheckBox
+            android:id="@+id/transportationCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Transportation" />
+
+        <CheckBox
+            android:id="@+id/salaryCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salary" />
+
+        <CheckBox
+            android:id="@+id/cashbackCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cashback" />
+
+        <CheckBox
+            android:id="@+id/moneyTransferCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Money Transfer" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dateRangeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/menu"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <EditText
+            android:id="@+id/dateFrom"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="From"
+            android:cursorVisible="false"
+            android:drawableRight="@drawable/ic_twotone_calendar_today_24px"/>
+
+        <EditText
+            android:id="@+id/dateTo"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="To"
+            android:cursorVisible="false"
+            android:drawableRight="@drawable/ic_twotone_calendar_today_24px"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/actionButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/categoryLayout"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/cancelAction"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textColor="@color/colorAccent"/>
+
+        <Button
+            android:id="@+id/clearAllAction"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Clear All"
+            android:textColor="@color/colorAccent"/>
+
+
+        <Button
+            android:id="@+id/applyAction"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Apply"
+            android:textColor="@color/colorAccent"/>
+
+
+    </LinearLayout>
+</RelativeLayout>
+

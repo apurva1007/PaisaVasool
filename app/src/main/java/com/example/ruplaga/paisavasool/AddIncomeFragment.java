@@ -52,7 +52,7 @@ public class AddIncomeFragment extends Fragment implements View.OnClickListener{
     String selectedCategory, mode, dateString, notes;
     float amount;
     int year, month, day;
-    long date;
+    Long date;
 
     View view;
     TextView mDisplayDate, amountView;
@@ -148,8 +148,11 @@ public class AddIncomeFragment extends Fragment implements View.OnClickListener{
         month = cal.get(Calendar.MONTH);
         day = cal.get(Calendar.DAY_OF_MONTH);
 
+        System.out.println("Day:" + day);
+
         cal.set(year,month,day);
         date = cal.getTimeInMillis();
+
         dateString = day + "/" + month + "/" + year;
         mDisplayDate.setText(dateString);
 

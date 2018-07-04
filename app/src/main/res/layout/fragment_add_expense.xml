@@ -165,12 +165,14 @@
             android:layout_height="wrap_content"
             android:text="Date"
             android:textStyle="bold"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/transactionDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:drawableRight="@drawable/ic_twotone_calendar_today_24px" />
     </LinearLayout>
 
     <LinearLayout
@@ -187,7 +189,7 @@
             android:layout_marginTop="10dp"
             android:text="Notes"
             android:textStyle="bold"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
         <EditText
             android:id="@+id/expenseNotes"
             android:layout_width="wrap_content"

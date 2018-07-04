@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="4"
+    tools:context="com.example.ruplaga.paisavasool.HistoryFragment">
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <Button
+            android:id="@+id/amountLowToHigh"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Amount: low to high"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/amountHighToLow"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Amount: high to low"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/recentFirst"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recent first"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/oldestFirst"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Oldest first"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+</RelativeLayout>
+
