@@ -138,7 +138,10 @@
 
     <Button
         android:id="@+id/signOut"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Out" />
+        android:text="Sign Out"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent" />
 </LinearLayout>

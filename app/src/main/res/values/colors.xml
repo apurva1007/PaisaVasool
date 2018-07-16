@@ -12,7 +12,8 @@
     <color name="green">#a7cb4b</color>
     <color name="yellow">#ffc65c</color>
     <color name="background">#E5E8E8</color>
-
+    <color name="pressed_color">#4d90fe</color>
+    <color name="default_color">#ffffff</color>
 
 
 

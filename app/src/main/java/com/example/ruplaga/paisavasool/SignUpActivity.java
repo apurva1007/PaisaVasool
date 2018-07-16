@@ -32,8 +32,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private FirebaseAuth mAuth;
     DatabaseReference databaseReference = null;
-
     private FirebaseDatabase mFirebaseDatabase;
+
     String userID;
 
     @Override
@@ -110,7 +110,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         Balance newBalance = new Balance(0,0,0);
                         databaseReference.child(userID).child("balances").setValue(newBalance);
                     }
-                 //   finish();
                 } else {
 
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
@@ -119,15 +118,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     } else {
                         Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
                 }
-
-
-            }
-
-            private void setDisplayName() {
-
-
             }
         });
 

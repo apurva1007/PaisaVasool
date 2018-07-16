@@ -148,12 +148,10 @@ public class AddIncomeFragment extends Fragment implements View.OnClickListener{
         month = cal.get(Calendar.MONTH);
         day = cal.get(Calendar.DAY_OF_MONTH);
 
-        System.out.println("Day:" + day);
-
         cal.set(year,month,day);
         date = cal.getTimeInMillis();
 
-        dateString = day + "/" + month + "/" + year;
+        dateString = year + "-" + (month+1) + "-" + day;
         mDisplayDate.setText(dateString);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
@@ -172,11 +170,12 @@ public class AddIncomeFragment extends Fragment implements View.OnClickListener{
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
+                month = month;
                 Calendar cal = Calendar.getInstance();
                 cal.set(year,month,day);
                 date = cal.getTimeInMillis();
-                dateString = day + "/" + month + "/" + year;
+
+                dateString = year + "-" + (month+1) + "-" + day;
                 mDisplayDate.setText(dateString);
             }
         };

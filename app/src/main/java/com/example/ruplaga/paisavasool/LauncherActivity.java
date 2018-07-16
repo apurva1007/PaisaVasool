@@ -22,7 +22,6 @@ public class LauncherActivity extends Activity {
     protected void onStart() {
         super.onStart();
         System.out.println("User:" + mAuth.getCurrentUser());
-        //mAuth.signOut();
         if (mAuth.getCurrentUser() != null) {
             finish();
             startActivity(new Intent(this, MainActivity.class));

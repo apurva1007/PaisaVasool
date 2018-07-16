@@ -73,38 +73,39 @@ public class HistoryFragment extends Fragment implements View.OnClickListener, A
     }
 
     private OnFragmentInteractionListener mListener;
+
+    //basic history fragment view
     ListView listView;
     TextView sort, filter, noTransactionMessage;
+    LinearLayout bottomLayout;
+    ActionMode mActionMode;
+    FloatingActionButton exportData;
+
+    //bottom sheet dialog views
+    BottomSheetDialog mBottomSheetDialog;
     Button typeButton, modeButton, categoryButton, dateRangeButton;
     CheckBox cFood, cOther, cTransportation, cHealth, cLeisure, cExpense, cIncome, cSalary, cCashback, cMoneyTransfer, cAccount, cPaytm, cCash;
-    LinearLayout typeLayout, modeLayout, categoryLayout, dateRangeLayout, bottomLayout;
-    Button clearAction, cancelAction, applyAction;
-    BottomSheetDialog mBottomSheetDialog;
-
-    DatePickerDialog.OnDateSetListener mDateSetListener1, mDateSetListener2;
+    LinearLayout typeLayout, modeLayout, categoryLayout, dateRangeLayout;
     EditText fromDate, toDate;
+    DatePickerDialog.OnDateSetListener mDateSetListener1, mDateSetListener2;
+    Button amountLowToHigh, amountHighToLow, recentFirst, oldestFirst;
+    Button clearAction, cancelAction, applyAction;
+
+    //database variables
+    DatabaseReference databaseExpenses = null;
+    DatabaseReference databaseBalances = null;
+    //variables
     int year, month, day;
     Long longDateFrom, longDateTo;
     String dateString;
-    ActionMode mActionMode;
-    Button amountLowToHigh, amountHighToLow, recentFirst, oldestFirst;
-    FloatingActionButton exportData;
-
     File myExternalFile;
-    String filterby, sortby;
-
     ExpenseList customAdapter;
-
+    Balance balance;
     List<Transaction> transactionList = new ArrayList<>();
     List<Transaction> newTransactionList = new ArrayList<>();
-
-    DatabaseReference databaseExpenses = null;
     private String filename = "transaction" + new Date().getTime() + ".csv";
     private String filepath = "/PaisaVasool";
-
     int[] color = {R.color.red, R.color.green};
-
-
 
     /**
      * Use this factory method to create a new instance of
@@ -146,12 +147,14 @@ public class HistoryFragment extends Fragment implements View.OnClickListener, A
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
+
         listView = view.findViewById(R.id.historyList);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println(position);
-                MyActionModeCallback callback = new MyActionModeCallback(position);
+                view.setSelected(true);
+                MyActionModeCallback callback = new MyActionModeCallback(position, view);
                 mActionMode = HistoryFragment.this.getActivity().startActionMode(callback);
                 mActionMode.setTitle("Options");
                 return true;
@@ -182,93 +185,9 @@ public class HistoryFragment extends Fragment implements View.OnClickListener, A
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
-
         databaseExpenses = FirebaseDatabase.getInstance().getReference().child(userId).child("transactions");
+        databaseBalances = FirebaseDatabase.getInstance().getReference().child(userId).child("balances");
         return view;
-    }
-
-    class MyActionModeCallback implements ActionMode.Callback{
-
-        int position;
-
-        public MyActionModeCallback(int position) {
-            this.position = position;
-        }
-
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mode.getMenuInflater().inflate(R.menu.context, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            switch (item.getItemId()){
-                case R.id.delete:
-
-                    System.out.println("Customadapter:" +customAdapter.getCount());
-                    deleteTransaction(customAdapter.getItem(position).getTransactionId());
-                    customAdapter.remove(customAdapter.getItem(position));
-                    mode.finish();
-            }
-            return false;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-
-        }
-    }
-
-    private void deleteTransaction(String transactionId) {
-
-        System.out.println("In delete transaction");
-
-        Query query = databaseExpenses.orderByChild("transactionId").equalTo(transactionId);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot deleteSnapshot: dataSnapshot.getChildren()) {
-                    deleteSnapshot.getRef().removeValue();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-       // getFilterData();
-    }
-
-    private static boolean isExternalStorageReadOnly() {
-        String extStorageState = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
-            return true;
-        }
-        return false;
-    }
-
-    private static boolean isExternalStorageAvailable() {
-        String extStorageState = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
-            return true;
-        }
-        return false;
-    }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -287,8 +206,11 @@ public class HistoryFragment extends Fragment implements View.OnClickListener, A
 
                 createCopy();
                 System.out.println(newTransactionList.size());
-                customAdapter = new ExpenseList(getActivity(), transactionList);
-                listView.setAdapter(customAdapter);
+
+                if(getActivity()!=null){
+                    customAdapter = new ExpenseList(getActivity(), transactionList);
+                    listView.setAdapter(customAdapter);
+                }
             }
 
             @Override
@@ -306,50 +228,6 @@ public class HistoryFragment extends Fragment implements View.OnClickListener, A
 //        else{
 //            noTransactionMessage.setVisibility(View.GONE);
 //        }
-
-
-    }
-
-
-    public void createCopy(){
-        newTransactionList.clear();
-        for(int i = 0; i < transactionList.size(); i++){
-            newTransactionList.add(i, transactionList.get(i));
-        }
-    }
-
-    public void exportTxt(){
-        if (checkSelfPermission(getContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
-            try {
-                FileOutputStream fos = new FileOutputStream(myExternalFile, true);
-                for(int i = 0; i < newTransactionList.size(); i++){
-                    Transaction t = newTransactionList.get(i);
-                    String data = t.getTransactionId() + ","  + getStringDate(t) + "," + t.getTransactionType() + "," + t.getTransactionCategory()
-                            + "," + t.getTransactionModeOfPayment() + "," + t.getTransactionAmount() + "," + t.getTransactionNotes()+"\n";
-                    System.out.println(data);
-                    fos.write(data.getBytes());
-                }
-                fos.close();
-                Toast.makeText(getActivity(), "File Exported to : " + myExternalFile, Toast.LENGTH_LONG).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -417,6 +295,102 @@ public class HistoryFragment extends Fragment implements View.OnClickListener, A
 
         }
     }
+
+
+
+    private void deleteTransaction(String transactionId) {
+
+        System.out.println("In delete transaction");
+
+        Query query = databaseExpenses.orderByChild("transactionId").equalTo(transactionId);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot deleteSnapshot: dataSnapshot.getChildren()) {
+                    deleteSnapshot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+       // getFilterData();
+    }
+
+    private static boolean isExternalStorageReadOnly() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isExternalStorageAvailable() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+
+
+
+    public void createCopy(){
+        newTransactionList.clear();
+        for(int i = 0; i < transactionList.size(); i++){
+            newTransactionList.add(i, transactionList.get(i));
+        }
+    }
+
+    public void exportTxt(){
+        if (checkSelfPermission(getContext(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            try {
+                FileOutputStream fos = new FileOutputStream(myExternalFile, true);
+                for(int i = 0; i < newTransactionList.size(); i++){
+                    Transaction t = newTransactionList.get(i);
+                    String data = t.getTransactionId() + ","  + getStringDate(t) + "," + t.getTransactionType() + "," + t.getTransactionCategory()
+                            + "," + t.getTransactionModeOfPayment() + "," + t.getTransactionAmount() + "," + t.getTransactionNotes()+"\n";
+                    System.out.println(data);
+                    fos.write(data.getBytes());
+                }
+                fos.close();
+                Toast.makeText(getActivity(), "File Exported to : " + myExternalFile, Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+
 
     private void openSort() {
 
@@ -834,6 +808,105 @@ public class HistoryFragment extends Fragment implements View.OnClickListener, A
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    class MyActionModeCallback implements ActionMode.Callback{
+
+        int position;
+        View view;
+
+        public MyActionModeCallback(int position, View view) {
+            this.position = position;
+            this.view = view;
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.context, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+            switch (item.getItemId()){
+                case R.id.delete:
+
+                    System.out.println("Customadapter:" +customAdapter.getCount());
+                    updateBalance(customAdapter.getItem(position));
+                    deleteTransaction(customAdapter.getItem(position).getTransactionId());
+                    customAdapter.remove(customAdapter.getItem(position));
+                    mode.finish();
+            }
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            view.setSelected(false);
+        }
+    }
+
+    private void updateBalance(final Transaction item) {
+
+
+
+
+        databaseBalances.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                float currentAmount = 0;
+                final float deletedAmount = item.getTransactionAmount();
+
+                final String mode = item.getTransactionModeOfPayment();
+                final TransactionType type = item.getTransactionType();
+                String balanceType = "";
+
+                balance = dataSnapshot.getValue(Balance.class);
+
+                switch (mode){
+                    case "Cash":
+                        balanceType = "cash";
+                        currentAmount = balance.cash;
+                        break;
+
+                    case "Account":
+                        balanceType = "bankAccount";
+                        currentAmount = balance.bankAccount;
+                        break;
+
+                    case "Paytm":
+                        balanceType = "paytm";
+                        currentAmount = balance.paytm;
+                        break;
+                }
+
+
+              //  System.out.println(currentAmount + " , " + deletedAmount);
+                if(type == TransactionType.Expense)
+                    databaseBalances.child(balanceType).setValue(currentAmount + deletedAmount);
+                else
+                    databaseBalances.child(balanceType).setValue(currentAmount - deletedAmount);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+//        System.out.println(balance.cash);
+
+
+
     }
 
     class ExpenseList extends ArrayAdapter<Transaction> {
